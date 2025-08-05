@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Su Hatırlatıcısı</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <link rel="icon" href="https://i.imgur.com/V68q3hE.png" type="image/png">
+</head>
+<body>
+
+    <div class="container">
+        
+        <h1>Su Hatırlatıcısı</h1>
+        
+        <div class="status">
+            <p id="status-text">Hedef: 2000 ml / İçilen: 0 ml</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div class="input-group">
+            <input type="number" id="ml-input" placeholder="Miktar (ml)">
+            <button id="add-btn">Ekle</button>
+        </div>
+
+        <div class="button-group">
+            <button class="quick-add-btn" data-amount="250">Bardak (250ml)</button>
+            <button class="quick-add-btn" data-amount="500">Şişe (500ml)</button>
+        </div>
+
+        <div class="control-group">
+            <button id="undo-btn">Geri Al</button>
+            <button id="reset-btn">Sıfırla</button>
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
