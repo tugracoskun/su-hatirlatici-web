@@ -4,42 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Su Hatırlatıcısı</title>
-    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
     <link rel="icon" href="https://i.imgur.com/V68q3hE.png" type="image/png">
 </head>
 <body>
+    <div id="toast-notification" class="toast"></div>
 
     <div class="container">
-        
         <h1>Su Hatırlatıcısı</h1>
         
         <div class="status">
             <p id="status-text">Hedef: 2000 ml / İçilen: 0 ml</p>
+            <span id="edit-target-btn" class="edit-icon" title="Hedefi Düzenle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.175.175z"/>
+                </svg>
+            </span>
         </div>
 
         <div class="progress-container">
             <div class="progress-bar" id="progress-bar"></div>
         </div>
-
         <div class="input-group">
             <input type="number" id="ml-input" placeholder="Miktar (ml)">
             <button id="add-btn">Ekle</button>
         </div>
-
         <div class="button-group">
             <button class="quick-add-btn" data-amount="250">Bardak (250ml)</button>
             <button class="quick-add-btn" data-amount="500">Şişe (500ml)</button>
         </div>
-
         <div class="control-group">
             <button id="undo-btn">Geri Al</button>
             <button id="reset-btn">Sıfırla</button>
         </div>
 
+        <details class="log-container">
+            <summary>Günlük İçim Kayıtları</summary>
+            <ul id="log-list">
+            </ul>
+        </details>
     </div>
-
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

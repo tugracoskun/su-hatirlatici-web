@@ -1,116 +1,31 @@
-/* Google'dan modern bir yazı tipi import ediyoruz */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-/* Temel ayarlar ve renk paletimiz */
-:root {
-    --background-color: #2c3e50; /* Koyu Mavi-Gri */
-    --container-color: #34495e;  /* Biraz daha açık Mavi-Gri */
-    --primary-color: #3498db;     /* Canlı Mavi */
-    --text-color: #ecf0f1;        /* Beyaza yakın Gri */
-    --progress-bg-color: #2c3e50; /* İlerleme çubuğu arka planı */
-    --button-secondary-color: #95a5a6; /* Gri Buton */
-}
-
-/* Sayfanın tamamı için temel stiller */
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-/* Her şeyi içinde tutan ana kutumuz */
-.container {
-    background-color: var(--container-color);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    width: 400px;
-    text-align: center;
-}
-
-/* Ana başlık */
-h1 {
-    margin-top: 0;
-    color: var(--primary-color);
-}
-
-/* İlerleme çubuğunun dış kutusu */
-.progress-container {
-    background-color: var(--progress-bg-color);
-    border-radius: 25px;
-    height: 25px;
-    width: 100%;
-    border: 2px solid #273748;
-}
-
-/* İlerleme çubuğunun dolan kısmı */
-.progress-bar {
-    background-color: var(--primary-color);
-    height: 100%;
-    width: 0%; /* JavaScript ile bu değeri değiştireceğiz */
-    border-radius: 25px;
-    transition: width 0.5s ease-in-out; /* Genişlik değişimini yumuşak yapar */
-}
-
-/* Giriş alanı ve Ekle butonunu yan yana tutan grup */
-.input-group {
-    margin: 25px 0;
-    display: flex;
-    justify-content: center;
-}
-
-/* Miktar giriş kutusu */
-#ml-input {
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    padding: 10px;
-    border: 2px solid #2c3e50;
-    border-radius: 8px;
-    background-color: #2c3e50;
-    color: var(--text-color);
-    width: 120px;
-    text-align: center;
-}
-
-/* Genel buton stilleri */
-button {
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-button:hover {
-    transform: translateY(-2px); /* Butonun üzerine gelince hafifçe yukarı kalkma efekti */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Ana "Ekle" butonu */
-#add-btn {
-    background-color: var(--primary-color);
-    color: white;
-    margin-left: 10px;
-}
-
-/* Diğer buton grupları */
-.button-group, .control-group {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Butonlar arası boşluk */
-}
-
-/* Hızlı ekle ve kontrol butonları */
-.quick-add-btn, .control-group button {
-    background-color: var(--button-secondary-color);
-    color: #2c3e50;
-}
+:root{--background-color:#121212;--container-color:#1E1E1E;--primary-color:#0d6efd;--text-color:#FFFFFF;--border-color:#444;}
+body{font-family:'Poppins',sans-serif;background-color:var(--background-color);color:var(--text-color);display:flex;justify-content:center;align-items:center;height:100vh;margin:0;overflow:hidden;}
+.container{background-color:var(--container-color);padding:30px;border-radius:15px;border:1px solid var(--border-color);box-shadow:0 10px 30px rgba(0,0,0,0.5);width:400px;text-align:center;}
+.status{display:flex;justify-content:center;align-items:center;gap:10px;padding:5px;border-radius:5px;}
+.edit-icon{cursor:pointer;opacity:0.6;transition:opacity 0.2s ease;}
+.edit-icon:hover{opacity:1;}
+.edit-icon svg{fill:var(--text-color);width:16px;height:16px;vertical-align:middle;}
+h1{margin-top:0;color:var(--text-color);font-weight:600;}
+.progress-container{background-color:var(--background-color);border-radius:25px;height:25px;width:100%;border:1px solid var(--border-color);}
+.progress-bar{background-color:var(--primary-color);height:100%;width:0%;border-radius:25px;transition:width 0.5s ease-in-out;}
+.input-group{margin:25px 0;display:flex;justify-content:center;}
+#ml-input{font-family:'Poppins',sans-serif;font-size:16px;padding:10px;border:1px solid var(--border-color);border-radius:8px;background-color:var(--background-color);color:var(--text-color);width:120px;text-align:center;}
+button{font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;transition:transform 0.2s ease,background-color 0.2s ease;}
+button:hover{transform:translateY(-2px);}
+button:disabled{background-color:#555 !important;cursor:not-allowed;transform:none;opacity:0.5;}
+#add-btn{background-color:var(--primary-color);color:white;margin-left:10px;}
+#add-btn:hover{background-color:#0b5ed7;}
+.button-group,.control-group{margin-top:15px;display:flex;justify-content:center;gap:10px;}
+.quick-add-btn,.control-group button{background-color:#333;color:white;border:1px solid var(--border-color);}
+.quick-add-btn:hover,.control-group button:hover{background-color:#444;}
+.toast{position:fixed;top:-100px;left:50%;transform:translateX(-50%);background-color:var(--primary-color);color:white;padding:16px;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.5);z-index:1000;transition:top 0.5s ease-in-out;}
+.toast.show{top:20px;}
+.log-container{margin-top:20px;border:1px solid var(--border-color);border-radius:8px;text-align:left;}
+.log-container summary{padding:10px 15px;font-weight:600;cursor:pointer;outline:none;list-style-position:inside;}
+.log-container[open]{background-color:#181818;}
+.log-container[open] summary{border-bottom:1px solid var(--border-color);}
+#log-list{list-style-type:none;padding:0;margin:0;max-height:150px;overflow-y:auto;}
+#log-list li{padding:8px 15px;font-size:14px;border-bottom:1px solid #2c2c2c;display:flex;justify-content:space-between;align-items:center;}
+#log-list li:last-child{border-bottom:none;}
+.log-time{color:#999;font-size:12px;}
