@@ -108,5 +108,15 @@ document.addEventListener('DOMContentLoaded', () => {
             updateLog();
         }
     });
+
+    // YENİ: "Enter" tuşu ile ekleme özelliği
+    mlInput.addEventListener('keydown', (event) => {
+        // Eğer basılan tuş 'Enter' ise...
+        if (event.key === 'Enter') {
+            // "Ekle" butonuna programatik olarak tıkla
+            addBtn.click();
+        }
+    });
+
     updateUI();
 });
