@@ -1,10 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- TEMA DEĞİŞTİRME ELEMANLARI ---
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const body = document.body;
+    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zM12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM3.515 6.025l-1.414-1.414L3.515 3.2zM2 11h2v2H2zm1.515 9.39l-1.414 1.414L3.515 20.4zM11 20h2v2h-2zm7.879-2.207l1.414-1.414L19.586 18zM20 11h2v2h-2zm-1.515-9.39l1.414 1.414L19.586 4.6zM13 2h-2V0h2z"/></svg>`;
+    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>`;
+
+    // --- SABİTLER VE DEĞİŞKENLER ---
     let TARGET_ML = 2000;
     const ALARM_DURATION_MS = 90 * 60 * 1000;
-    let currentMl = 0;
-    let history = []; 
-    let alarmTimer = null;
+    let currentMl = 0, history = [], alarmTimer = null;
 
+    // --- HTML ELEMENTLERİNİ SEÇME ---
     const statusText = document.getElementById('status-text');
     const progressBar = document.getElementById('progress-bar');
     const mlInput = document.getElementById('ml-input');
@@ -16,8 +22,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const editTargetBtn = document.getElementById('edit-target-btn');
     const logList = document.getElementById('log-list');
 
-    if (Notification.permission !== 'granted') { Notification.requestPermission(); }
+    // --- TEMA YÖNETİMİ ---
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggleBtn.innerHTML = sunIcon;
+        } else {
+            body.classList.remove('dark-mode');
+            themeToggleBtn.innerHTML = moonIcon;
+        }
+    }
     
+    const savedTheme = localStorage.getItem('theme') || 'dark'; // Varsayılanı koyu yapalım
+    applyTheme(savedTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+        const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
+        applyTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+
+    // --- BİLDİRİM İZNİ ---
+    if (Notification.permission !== 'granted') { Notification.requestPermission(); }
+
+    // --- ANA FONKSİYONLAR ---
     function showToast(message) {
         toast.textContent = message;
         toast.classList.add('show');
@@ -67,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- BUTON OLAYLARI ---
     editTargetBtn.addEventListener('click', () => {
         const newTarget = prompt("Yeni günlük hedefinizi ml olarak girin:", TARGET_ML);
         if (newTarget !== null && !isNaN(newTarget) && Number(newTarget) > 0) {
@@ -108,12 +137,9 @@ document.addEventListener('DOMContentLoaded', () => {
             updateLog();
         }
     });
-
-    // YENİ: "Enter" tuşu ile ekleme özelliği
+    
     mlInput.addEventListener('keydown', (event) => {
-        // Eğer basılan tuş 'Enter' ise...
         if (event.key === 'Enter') {
-            // "Ekle" butonuna programatik olarak tıkla
             addBtn.click();
         }
     });

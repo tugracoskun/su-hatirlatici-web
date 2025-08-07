@@ -1,31 +1,257 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-:root{--background-color:#121212;--container-color:#1E1E1E;--primary-color:#0d6efd;--text-color:#FFFFFF;--border-color:#444;}
-body{font-family:'Poppins',sans-serif;background-color:var(--background-color);color:var(--text-color);display:flex;justify-content:center;align-items:center;height:100vh;margin:0;overflow:hidden;}
-.container{background-color:var(--container-color);padding:30px;border-radius:15px;border:1px solid var(--border-color);box-shadow:0 10px 30px rgba(0,0,0,0.5);width:400px;text-align:center;}
-.status{display:flex;justify-content:center;align-items:center;gap:10px;padding:5px;border-radius:5px;}
-.edit-icon{cursor:pointer;opacity:0.6;transition:opacity 0.2s ease;}
-.edit-icon:hover{opacity:1;}
-.edit-icon svg{fill:var(--text-color);width:16px;height:16px;vertical-align:middle;}
-h1{margin-top:0;color:var(--text-color);font-weight:600;}
-.progress-container{background-color:var(--background-color);border-radius:25px;height:25px;width:100%;border:1px solid var(--border-color);}
-.progress-bar{background-color:var(--primary-color);height:100%;width:0%;border-radius:25px;transition:width 0.5s ease-in-out;}
-.input-group{margin:25px 0;display:flex;justify-content:center;}
-#ml-input{font-family:'Poppins',sans-serif;font-size:16px;padding:10px;border:1px solid var(--border-color);border-radius:8px;background-color:var(--background-color);color:var(--text-color);width:120px;text-align:center;}
-button{font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;transition:transform 0.2s ease,background-color 0.2s ease;}
-button:hover{transform:translateY(-2px);}
-button:disabled{background-color:#555 !important;cursor:not-allowed;transform:none;opacity:0.5;}
-#add-btn{background-color:var(--primary-color);color:white;margin-left:10px;}
-#add-btn:hover{background-color:#0b5ed7;}
-.button-group,.control-group{margin-top:15px;display:flex;justify-content:center;gap:10px;}
-.quick-add-btn,.control-group button{background-color:#333;color:white;border:1px solid var(--border-color);}
-.quick-add-btn:hover,.control-group button:hover{background-color:#444;}
-.toast{position:fixed;top:-100px;left:50%;transform:translateX(-50%);background-color:var(--primary-color);color:white;padding:16px;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.5);z-index:1000;transition:top 0.5s ease-in-out;}
-.toast.show{top:20px;}
-.log-container{margin-top:20px;border:1px solid var(--border-color);border-radius:8px;text-align:left;}
-.log-container summary{padding:10px 15px;font-weight:600;cursor:pointer;outline:none;list-style-position:inside;}
-.log-container[open]{background-color:#181818;}
-.log-container[open] summary{border-bottom:1px solid var(--border-color);}
-#log-list{list-style-type:none;padding:0;margin:0;max-height:150px;overflow-y:auto;}
-#log-list li{padding:8px 15px;font-size:14px;border-bottom:1px solid #2c2c2c;display:flex;justify-content:space-between;align-items:center;}
-#log-list li:last-child{border-bottom:none;}
-.log-time{color:#999;font-size:12px;}
+
+/* Değişkenlerimizi tanımlıyoruz. Varsayılan olarak AÇIK TEMA renkleri. */
+:root {
+    --background-color: #f4f7f6;  /* Açık Gri */
+    --container-color: #ffffff;   /* Beyaz */
+    --primary-color: #0d6efd;      /* Mavi */
+    --text-color: #212529;         /* Siyah */
+    --border-color: #dee2e6;        /* Açık Gri Çizgi */
+    --input-bg-color: #e9ecef;     /* Giriş alanı arkaplanı */
+    --secondary-btn-bg: #6c757d;   /* İkincil Buton */
+}
+
+/* body.dark-mode class'ı eklendiğinde bu renkler devreye girecek. */
+body.dark-mode {
+    --background-color: #121212;
+    --container-color: #1E1E1E;
+    --text-color: #FFFFFF;
+    --border-color: #444;
+    --input-bg-color: #333;
+    --secondary-btn-bg: #333;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.container {
+    background-color: var(--container-color);
+    border: 1px solid var(--border-color);
+    position: relative;
+    transition: background-color 0.3s, border-color 0.3s;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+/* Tema Değiştirme Düğmesi Stilleri */
+.theme-toggle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: 1px solid var(--border-color);
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Yuvarlak yapmak için */
+}
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--text-color);
+}
+
+.status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.edit-icon {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.edit-icon:hover {
+    opacity: 1;
+}
+
+.edit-icon svg {
+    fill: var(--text-color);
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+h1 {
+    margin-top: 0;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.progress-container {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    height: 25px;
+    width: 100%;
+}
+
+.progress-bar {
+    background-color: var(--primary-color);
+    height: 100%;
+    width: 0%;
+    border-radius: 25px;
+    transition: width 0.5s ease-in-out;
+}
+
+.input-group {
+    margin: 25px 0;
+    display: flex;
+    justify-content: center;
+}
+
+#ml-input {
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 8px;
+    width: 120px;
+    text-align: center;
+}
+
+button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background-color: #555 !important;
+    cursor: not-allowed;
+    transform: none;
+    opacity: 0.5;
+}
+
+#add-btn {
+    background-color: var(--primary-color);
+    color: white;
+    margin-left: 10px;
+}
+
+#add-btn:hover {
+    background-color: #0b5ed7;
+}
+
+.button-group, .control-group {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.quick-add-btn, .control-group button {
+    background-color: var(--secondary-btn-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.quick-add-btn:hover, .control-group button:hover {
+    opacity: 0.8;
+}
+
+/* Anlık bildiri (Toast) için stil */
+.toast {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    transition: top 0.5s ease-in-out;
+}
+
+.toast.show {
+    top: 20px;
+}
+
+/* Log alanı için stiller */
+.log-container {
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-align: left;
+    transition: background-color 0.3s;
+}
+
+.log-container summary {
+    padding: 10px 15px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    list-style-position: inside;
+}
+
+body:not(.dark-mode) .log-container[open] {
+    background-color: #f8f9fa;
+}
+
+body.dark-mode .log-container[open] {
+    background-color: #181818;
+}
+
+.log-container[open] summary {
+    border-bottom: 1px solid var(--border-color);
+}
+
+#log-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+#log-list li {
+    padding: 8px 15px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#log-list li:last-child {
+    border-bottom: none;
+}
+
+.log-time {
+    color: #999;
+    font-size: 12px;
+}
